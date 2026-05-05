@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Figure Cropper</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="workspace" aria-label="Image cropping workspace">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Figure Cropper</p>
+            <h1>Crop the whitespace. Keep the graph.</h1>
+          </div>
+          <div class="actions">
+            <label class="button secondary" for="fileInput">Upload</label>
+            <button class="button ghost" id="resetButton" type="button" disabled>Reset</button>
+            <button class="button primary" id="downloadButton" type="button" disabled>Download</button>
+          </div>
+        </header>
+
+        <input id="fileInput" type="file" accept="image/png,image/jpeg,image/jpg,image/webp" />
+
+        <div class="content-grid">
+          <section class="stage-panel">
+            <div id="dropZone" class="drop-zone">
+              <div id="emptyState" class="empty-state">
+                <div class="upload-mark" aria-hidden="true">
+                  <span></span>
+                </div>
+                <h2>Drop a figure here</h2>
+                <p>PNG, JPG, JPEG, or WEBP. The image stays on your computer.</p>
+              </div>
+              <canvas id="cropCanvas" aria-label="Image crop area"></canvas>
+            </div>
+          </section>
+
+          <aside class="controls" aria-label="Crop controls">
+            <div class="control-group">
+              <h2>Crop Box</h2>
+              <button class="tool-button" id="trimButton" type="button" disabled>
+                Auto trim white margins
+              </button>
+              <button class="tool-button" id="fitButton" type="button" disabled>
+                Fit full image
+              </button>
+            </div>
+
+            <div class="control-group">
+              <h2>Edges</h2>
+              <label>
+                Left
+                <input id="leftInput" type="number" min="0" step="1" disabled />
+              </label>
+              <label>
+                Top
+                <input id="topInput" type="number" min="0" step="1" disabled />
+              </label>
+              <label>
+                Width
+                <input id="widthInput" type="number" min="1" step="1" disabled />
+              </label>
+              <label>
+                Height
+                <input id="heightInput" type="number" min="1" step="1" disabled />
+              </label>
+            </div>
+
+            <div class="control-group muted">
+              <h2>Output</h2>
+              <p id="imageMeta">No image loaded</p>
+              <p id="cropMeta">Crop size will appear here.</p>
+            </div>
+          </aside>
+        </div>
+      </section>
+    </main>
+
+    <script src="./app.js" defer></script>
+  </body>
+</html>
