@@ -20,7 +20,7 @@ const HANDLE_SIZE = 13;
 const MIN_CROP_SIZE = 8;
 
 let image = null;
-let fileName = "cropped-image";
+let downloadFileName = "cropped-image.png";
 let mimeType = "image/png";
 let crop = null;
 let scale = 1;
@@ -151,7 +151,7 @@ function updateMeta() {
   }
 
   imageMeta.textContent = `${image.width} x ${image.height}px source`;
-  cropMeta.textContent = `${crop.width} x ${crop.height}px crop`;
+  cropMeta.textContent = `${crop.width} x ${crop.height}px crop, exported at original pixel size`;
   inputs.left.value = crop.x;
   inputs.top.value = crop.y;
   inputs.width.value = crop.width;
@@ -166,7 +166,7 @@ function loadFile(file) {
     const nextImage = new Image();
     nextImage.onload = () => {
       image = nextImage;
-      fileName = file.name.replace(/\.[^.]+$/, "") || "cropped-image";
+      downloadFileName = file.name || "cropped-image.png";
       mimeType = ["image/jpeg", "image/png", "image/webp"].includes(file.type)
         ? file.type
         : "image/png";
@@ -385,14 +385,8 @@ function downloadCrop() {
     crop.height,
   );
 
-  const extensionByType = {
-    "image/jpeg": "jpg",
-    "image/png": "png",
-    "image/webp": "webp",
-  };
-  const extension = extensionByType[mimeType] ?? "png";
   const anchor = document.createElement("a");
-  anchor.download = `${fileName}-cropped.${extension}`;
+  anchor.download = downloadFileName;
   anchor.href = output.toDataURL(mimeType, 0.95);
   anchor.click();
 }
